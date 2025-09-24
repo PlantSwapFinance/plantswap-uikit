@@ -110,12 +110,6 @@ export const links = [
     href: "/project",
   },
   {
-    label: "Gouvernance",
-    icon: "VoteIcon",
-    href: "/vote",
-    status: status.NEW,
-  },
-  {
     label: "Roadmap",
     icon: "RoadmapIcon",
     href: "/roadmap",
@@ -223,18 +217,27 @@ export const links = [
       {
         label: "Voting",
         href: "https://voting.plantswap.finance",
+        target: "_blank",
       },
       {
         label: "Github",
         href: "https://github.com/plantswap",
+        target: "_blank",
       },
       {
         label: "Docs",
         href: "https://docs.plantswap.finance",
+        target: "_blank",
       },
       {
         label: "Blog",
         href: "https://plantswap.medium.com",
+        target: "_blank",
+      },
+      {
+        label: "Gouvernance",
+        href: "https://snapshot.box/#/s:plantswap.eth",
+        target: "_blank",
       },
     ],
   },
