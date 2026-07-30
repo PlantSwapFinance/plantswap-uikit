@@ -1,30 +1,30 @@
 import { LinkStatus } from "./types";
 
 export const status = {
-  LIVE: <LinkStatus>{
+  LIVE: {
     text: "LIVE",
     color: "failure",
-  },
-  SOON: <LinkStatus>{
+  } as LinkStatus,
+  SOON: {
     text: "SOON",
     color: "warning",
-  },
-  NEW: <LinkStatus>{
+  } as LinkStatus,
+  NEW: {
     text: "NEW",
     color: "success", // success
-  },
-  BETA: <LinkStatus>{
+  } as LinkStatus,
+  BETA: {
     text: "BETA",
     color: "failure",
-  },
-  HOT: <LinkStatus>{
+  } as LinkStatus,
+  HOT: {
     text: "HOT",
     color: "primaryDark",
-  },
-  FINISH: <LinkStatus>{
+  } as LinkStatus,
+  FINISH: {
     text: "FINISH",
     color: "textDisabled",
-  },
+  } as LinkStatus,
 };
 
 export const links = [
