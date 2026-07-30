@@ -16,8 +16,8 @@
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "format:check": "prettier --check --loglevel error 'src/**/*.{js,jsx,ts,tsx}'",
     "format:write": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'",
-    "storybook": "start-storybook -p 6006",
-    "storybook:build": "build-storybook",
+    "storybook": "storybook dev -p 6006",
+    "storybook:build": "storybook build",
     "test": "jest",
     "prepublishOnly": "yarn build"
   },
@@ -27,8 +27,15 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.28.5",
+    "@babel/preset-react": "^7.27.1",
+    "@babel/preset-typescript": "^7.28.5",
+    "@storybook/addon-a11y": "^10.0.0",
+    "@storybook/addon-links": "^10.0.0",
+    "@storybook/addon-webpack5-compiler-babel": "^4.0.1",
     "@storybook/cli": "^10.0.0",
     "@storybook/react": "^10.0.0",
+    "@storybook/react-webpack5": "^10.0.0",
     "@testing-library/dom": "^10.0.0",
     "@testing-library/jest-dom": "^7.0.0",
     "@testing-library/react": "^16.0.0",
@@ -52,8 +59,7 @@
     "lodash": "^4.17.20",
     "react-popper": "^2.2.5",
     "react-transition-group": "^4.4.1",
-    "styled-system": "^5.1.5",
-    "themeprovider-storybook": "^1.8.0"
+    "styled-system": "^5.1.5"
   },
   "publishConfig": {
     "access": "public"
