@@ -23,44 +23,35 @@ export default {
       "react-router-dom$": path.resolve(__dirname, "../node_modules/react-router-dom/dist/index.js"),
     };
 
-    // The `@storybook/react-webpack5` framework installs its own babel-loader
-    // rule that only configures `@babel/preset-env`. Inject the React and
-    // TypeScript presets so JSX/TS stories compile.
+    // `@storybook/addon-webpack5-compiler-babel` appends a babel-loader rule
+    // pointing at a `babel-loader` resolved from its own nested
+    // `node_modules`, which transitively depends on `@babel/core@^7.26.0`. With
+    // Babel 8 presets loaded via `babel.config.js`, that nested babel-core@7
+    // breaks enum/JSX transforms (e.g. `Cannot read properties of undefined
+    // (reading 'members')`). Rewrite the addon's rule to use the top-level
+    // `babel-loader` so Babel 8 runs against the project's `@babel/core@^8`.
     config.module = config.module || {};
+    const topLevelBabelLoader = path.resolve(__dirname, "../node_modules/babel-loader/lib/index.js");
     config.module.rules = (config.module.rules || []).map((rule) => {
-      if (
-        rule &&
-        Array.isArray(rule.use) &&
-        rule.use.some((entry) => entry && typeof entry === "object" && entry.loader && entry.loader.includes("babel-loader/lib/index.js"))
-      ) {
-        return {
-          ...rule,
-          use: rule.use.map((entry) => {
-            if (entry && entry.loader && entry.loader.includes("babel-loader")) {
-              const existingPresets = (entry.options && entry.options.presets) || [];
-              const basePresets = existingPresets.filter((p) => {
-                const name = Array.isArray(p) ? p[0] : p;
-                return name !== "@babel/preset-env";
-              });
-              return {
-                ...entry,
-                options: {
-                  ...(entry.options || {}),
-                  babelrc: true,
-                  configFile: true,
-                  presets: [
-                    ...basePresets,
-                    "@babel/preset-react",
-                    "@babel/preset-typescript",
-                  ],
-                },
-              };
-            }
-            return entry;
-          }),
-        };
-      }
-      return rule;
+      if (!rule || !Array.isArray(rule.use)) return rule;
+      let touched = false;
+      const newUse = rule.use.map((entry) => {
+        if (
+          entry &&
+          typeof entry === "object" &&
+          typeof entry.loader === "string" &&
+          entry.loader.includes("addon-webpack5-compiler-babel") &&
+          entry.loader.includes("babel-loader")
+        ) {
+          touched = true;
+          return {
+            ...entry,
+            loader: topLevelBabelLoader,
+          };
+        }
+        return entry;
+      });
+      return touched ? { ...rule, use: newUse } : rule;
     });
 
     return config;

@@ -27,9 +27,11 @@
     ]
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.28.5",
-    "@babel/preset-react": "^7.27.1",
-    "@babel/preset-typescript": "^7.28.5",
+    "@babel/core": "^8.0.0",
+    "@babel/preset-env": "^8.0.0",
+    "@babel/preset-react": "^8.0.0",
+    "@babel/preset-typescript": "^8.0.0",
+    "babel-loader": "^10.0.0",
     "@storybook/addon-a11y": "^10.0.0",
     "@storybook/addon-links": "^10.0.0",
     "@storybook/addon-webpack5-compiler-babel": "^4.0.1",
@@ -63,5 +65,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "resolutions": {
+    "react-docgen": "^7.0.0"
   }
 }
