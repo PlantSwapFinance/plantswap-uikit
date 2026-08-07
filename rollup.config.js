@@ -1,8 +1,8 @@
-import typescript from "@rollup/plugin-typescript";
-import url from "@rollup/plugin-url";
-import pkg from "./package.json";
+const typescript = require("@rollup/plugin-typescript");
+const url = require("@rollup/plugin-url");
+const pkg = require("./package.json");
 
-export default {
+module.exports = {
   input: "src/index.ts",
   output: [
     { file: pkg.main, format: "cjs" },
